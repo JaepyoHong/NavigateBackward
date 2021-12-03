@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>63166709-5d11-4cd7-a694-50b6f25e7960</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SharedProject</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Difinitions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GoToDefinitionCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NavigateBackwardCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NavigateBackwardPackage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NavigateBackwardService.cs" />
+  </ItemGroup>
+</Project>

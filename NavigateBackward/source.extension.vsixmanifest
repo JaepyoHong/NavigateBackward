@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
 	<Metadata>
-		<Identity Id="NavigateBackward.eb6543ee-fcb9-4388-a540-6482b88bb617" Version="1.0" Language="en-US" Publisher="Jaepyo Hong" />
+		<Identity Id="NavigateBackward.eb6543ee-fcb9-4388-a540-6482b88bb617" Version="1.2" Language="en-US" Publisher="Jaepyo Hong" />
 		<DisplayName>Navigate Backward like VS2010</DisplayName>
 		<Description xml:space="preserve">Navigate Backward like VS2010</Description>
 		<License>LICENSE.txt</License>

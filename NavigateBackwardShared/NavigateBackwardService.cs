@@ -3,13 +3,11 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using Microsoft.VisualStudio.TextManager.Interop;
 using System;
-using System.Threading;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Task = System.Threading.Tasks.Task;
 using EnvDTE;
-using System.IO;
 using Microsoft.VisualStudio.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +25,7 @@ namespace NavigateBackward
 
 		public void GoToDefinitionCommandFired(object sender, EventArgs e)
 		{
-			package.JoinableTaskFactory.RunAsync(async delegate
+			JoinableTask joinableTask = package.JoinableTaskFactory.RunAsync(async delegate
 			{
 				PositionToNavigate positionBefore;
 				positionBefore = await GetCurrentPositionAsync();
@@ -66,7 +64,20 @@ namespace NavigateBackward
 					DTE dte = service as DTE;
 					if (dte.get_IsOpenFile(EnvDTE.Constants.vsViewKindCode, position.path))     
 					{
-						dte.Documents.Item(position.path).Activate();
+						//Document document = dte.Documents.Item(position.path);
+						//document.Activate();
+
+						//foreach (Document document in dte.Documents)
+						//{
+						//	if (document.FullName == position.path)
+						//	{
+						//		document.Activate();
+						//		break;
+						//	}
+						//}	
+						Window win = dte.OpenFile(EnvDTE.Constants.vsViewKindCode, position.path);
+						win.Visible = true;
+						win.SetFocus();
 					}
 					else
 					{
@@ -86,11 +97,11 @@ namespace NavigateBackward
 					}
 				}
 			}
-			catch
+			catch (Exception ex)
 			{
 				VsShellUtilities.ShowMessageBox(
 					package,
-					string.Format(CultureInfo.CurrentCulture, "Inside {0}.NavigateBackwardCommandFired()", this.GetType().FullName),
+					string.Format(CultureInfo.CurrentCulture, "Inside {0}.NavigateBackwardCommandFired(), {1}", this.GetType().FullName, ex.Message),
 					"Exception",
 					OLEMSGICON.OLEMSGICON_WARNING,
 					OLEMSGBUTTON.OLEMSGBUTTON_OK,
@@ -123,7 +134,7 @@ namespace NavigateBackward
 
 		private void PostBuiltInCommand(uint commandId)
 		{
-			package.JoinableTaskFactory.RunAsync(async delegate
+			JoinableTask joinableTask = package.JoinableTaskFactory.RunAsync(async delegate
 			{
 				await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
